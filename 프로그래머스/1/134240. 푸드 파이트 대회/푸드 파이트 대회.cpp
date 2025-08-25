@@ -10,8 +10,8 @@ string solution(vector<int> food) {
     for (int i = 1; i < food.size(); ++i)
     {
         if (food[i] <= 1) continue;
-        for (int j = 0; j < food[i] / 2; ++j)
-            answer += to_string(i);
+        
+        answer.append(food[i] / 2, (char)(i + '0'));
     }
     string temp = answer;
     reverse(temp.begin(), temp.end());
