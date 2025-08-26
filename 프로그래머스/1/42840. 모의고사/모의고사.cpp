@@ -1,71 +1,47 @@
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 vector<int> solution(vector<int> answers) {
 	vector<int> answer;
-
-	int right[3], maxRight;
-	right[0] = 0;
-	right[1] = 0;
-	right[2] = 0;
-	maxRight = 0;
-	for (int i = 0; i < answers.size(); ++i)
-	{
-		// 수포자 1
-		if ((i % 5) + 1 == answers[i])
-			++right[0];
-
-		// 수포자 2
-		if (i % 2 == 0 &&
-			answers[i] == 2)
-			++right[1];
-		else
-		{
-			if (i % 8 == 1 &&
-				answers[i] == 1)
-				++right[1];
-			else if (i % 8 == 3 &&
-				answers[i] == 3)
-				++right[1];
-			else if (i % 8 == 5 &&
-				answers[i] == 4)
-				++right[1];
-			else if (i % 8 == 7 &&
-				answers[i] == 5)
-				++right[1];
-		}
-
-		// 수포자 3
-		if ((i % 10 == 0 || i % 10 == 1) &&
-			answers[i] == 3)
-			++right[2];
-		else if ((i % 10 == 2 || i % 10 == 3) &&
-			answers[i] == 1)
-			++right[2];
-		else if ((i % 10 == 4 || i % 10 == 5) &&
-			answers[i] == 2)
-			++right[2];
-		else if ((i % 10 == 6 || i % 10 == 7) &&
-			answers[i] == 4)
-			++right[2];
-		else if ((i % 10 == 8 || i % 10 == 9) &&
-			answers[i] == 5)
-			++right[2];
-	}
+    vector<int> right1({1, 2, 3, 4, 5});
+    vector<int> right2({2, 1, 2, 3, 2, 4, 2, 5});
+    vector<int> right3({3, 3, 1, 1, 2, 2, 4, 4, 5, 5});
+    vector<int> stu({0, 0, 0});
     
-    for (int i = 0; i < 3; ++i)
+    int max = 0;
+    for (int i = 0; i < answers.size(); ++i)
     {
-		if (right[i] > maxRight)
-			maxRight = right[i];
+        if (answers[i] == right1[i % right1.size()])
+        {
+            stu[0]++;
+            if (max < stu[0])
+                max = stu[0];
+        }
+        
+        if (answers[i] == right2[i % right2.size()])
+        {
+            stu[1]++;
+            if (max < stu[1])
+                max = stu[1];
+        }
+        
+        if (answers[i] == right3[i % right3.size()])
+        {
+            stu[2]++;
+            if (max < stu[2])
+                max = stu[2];
+        }
     }
-
-	for (int i = 0; i < 3; ++i)
-	{
-		if (right[i] == maxRight)
-			answer.push_back(i + 1);
-	}
+    
+    for (int i = 0; i < stu.size(); ++i)
+    {
+        if (max == stu[i])
+            answer.push_back(i + 1);
+    }
+    
 
 	return answer;
 }
