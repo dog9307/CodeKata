@@ -1,35 +1,30 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <queue>
 
 using namespace std;
 
 string solution(vector<string> cards1, vector<string> cards2, vector<string> goal) {
     string answer = "";
     
-    reverse(cards1.begin(), cards1.end());
-    reverse(cards2.begin(), cards2.end());
-    reverse(goal.begin(), goal.end());
+    int index1 = 0;
+    int index2 = 0;
+    int goalIndex = 0;
     
-    while (goal.size() > 0)
+    while (goalIndex < goal.size())
     {
-        if (cards1.size() >= 1)
+        if (cards1[index1] == goal[goalIndex])
         {
-            if (cards1[cards1.size() - 1] == goal[goal.size() - 1])
-            {
-                goal.pop_back();
-                cards1.pop_back();
-                continue;
-            }
+            ++index1;
+            ++goalIndex;
+            continue;
         }
-        if (cards2.size() >= 1)
+        if (cards2[index2] == goal[goalIndex])
         {
-            if (cards2[cards2.size() - 1] == goal[goal.size() - 1])
-            {
-                goal.pop_back();
-                cards2.pop_back();
-                continue;
-            }
+            ++index2;
+            ++goalIndex;
+            continue;
         }
         
         return "No";
