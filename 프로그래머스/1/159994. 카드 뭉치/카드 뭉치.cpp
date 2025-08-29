@@ -1,7 +1,6 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <queue>
 
 using namespace std;
 
@@ -14,13 +13,13 @@ string solution(vector<string> cards1, vector<string> cards2, vector<string> goa
     
     while (goalIndex < goal.size())
     {
-        if (cards1[index1] == goal[goalIndex])
+        if (index1 < cards1.size() && cards1[index1] == goal[goalIndex])
         {
             ++index1;
             ++goalIndex;
             continue;
         }
-        if (cards2[index2] == goal[goalIndex])
+        if (index2 < cards2.size() && cards2[index2] == goal[goalIndex])
         {
             ++index2;
             ++goalIndex;
